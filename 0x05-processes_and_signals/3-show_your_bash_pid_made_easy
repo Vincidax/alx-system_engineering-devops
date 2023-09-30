@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #a Bash script that displays the PID, along with the process name, for bash.
 
-for x in `pgrep bash`
+for x in $(pgrep bash)
 do
 	echo "$x bash"
 done
