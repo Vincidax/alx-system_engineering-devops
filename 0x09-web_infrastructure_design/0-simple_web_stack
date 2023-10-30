@@ -45,10 +45,6 @@ Application Server
 
 An application server is a software application that executes application code and provides services to applications, such as database access and session management.
 
-Database
-
-A database is a software application that stores and organizes data. MySQL is a popular open-source database that is used by many websites.
-
 Communication with User's Computer
 
 The server uses the HTTP protocol to communicate with the user's computer. HTTP is a standard protocol for transferring data between web servers and web browsers.
