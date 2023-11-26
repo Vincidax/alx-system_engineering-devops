@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# ssh client configuration
+
+
+# Variables
+server_alias="321864-web-01"
+server_hostname="34.229.67.230"
+server_username="ubuntu"
+private_key_path="$HOME/.ssh/school"
+
+# Create the ~/.ssh directory if it doesn't exist
+ssh_directory="$HOME/.ssh"
+
+if [ ! -d "$ssh_directory" ]; then
+    mkdir -p "$ssh_directory"
+fi
+
+# Check if the SSH config file exists, create if not
+ssh_config="$HOME/.ssh/config"
+
+if [ ! -f "$ssh_config" ]; then
+    touch "$ssh_config"
+fi
+
+# Append or update SSH configuration
+if grep -q "Host $server_alias" "$ssh_config"; then
+    sed -i.bak "/Host $server_alias/,/^$/s/HostName.*/HostName $server_hostname/" "$ssh_config"
+    sed -i "/Host $server_alias/,/^$/s/User.*/User $server_username/" "$ssh_config"
+    sed -i "/Host $server_alias/,/^$/s/IdentityFile.*/IdentityFile $private_key_path/" "$ssh_config"
+    sed -i "/Host $server_alias/,/^$/s/PreferredAuthentications.*/PreferredAuthentications publickey/" "$ssh_config"
+    sed -i "/Host $server_alias/,/^$/s/PasswordAuthentication.*/PasswordAuthentication no/" "$ssh_config"
+else
+    echo "
+    Host $server_alias
+        HostName $server_hostname
+        User $server_username
+        IdentityFile $private_key_path
+        PreferredAuthentications publickey
+        PasswordAuthentication no
+    " >> "$ssh_config"
+fi
+
+# Adjust file permissions
+chmod 700 "$ssh_directory"
+chmod 600 "$private_key_path"
+
+echo "SSH configuration updated for $server_alias"
