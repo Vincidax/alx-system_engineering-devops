@@ -1,0 +1,72 @@
+One Server Web Infrastructure 
+
+The link to the diagram: https://imgur.com/7WYa6vP
+
+User
+
+The user enters www.foobar.com into their web browser.
+The web browser uses the Domain Name System (DNS) to lookup the IP address for www.foobar.com.
+The DNS returns the IP address 8.8.8.8, which is the IP address of the server hosting www.foobar.com.
+The web browser establishes a connection to the server at 8.8.8.8.
+
+Server
+
+The web server on the server receives the connection request from the user's web browser.
+The web server identifies the requested website, www.foobar.com.
+The web server retrieves the application files for www.foobar.com from the server's disk drive.
+The web server processes the application files and generates a response.
+The web server sends the response back to the user's web browser.
+
+Application Server
+
+The application server is responsible for executing the application code for www.foobar.com. This code may be written in a variety of programming languages, such as PHP, Python, or Ruby.
+
+Database
+
+The database is used to store data for www.foobar.com, such as user accounts, product information, and blog posts.
+
+Domain Name
+
+A domain name is a unique identifier for a website on the internet. It is what users type into their web browsers to visit a website.
+
+DNS Record
+
+A DNS record is a database entry that maps a domain name to an IP address. This allows web browsers to find the correct server for a given website.
+
+www Record
+
+A www record is a type of DNS record that maps the www subdomain of a domain name to an IP address. This allows users to visit a website by typing www.domain.com or simply domain.com.
+
+Web Server
+
+A web server is a software application that listens for HTTP requests from web browsers and delivers the requested content. Nginx is a popular web server that is known for its speed and efficiency.
+
+Application Server
+
+An application server is a software application that executes application code and provides services to applications, such as database access and session management.
+
+Communication with User's Computer
+
+The server uses the HTTP protocol to communicate with the user's computer. HTTP is a standard protocol for transferring data between web servers and web browsers.
+
+Issues with This Infrastructure
+
+SPOF
+
+This infrastructure has a single point of failure (SPOF), which is the server. If the server goes down, the website will be unavailable.
+
+Downtime When Maintenance Needed
+
+If maintenance is needed on the server, such as deploying new code, the website will be unavailable during the maintenance period.
+
+Cannot Scale If Too Much Incoming Traffic
+
+If the website receives too much incoming traffic, the server may not be able to handle the load. This can result in slow performance or even outages.
+
+Mitigation Strategies
+
+There are a number of strategies that can be used to mitigate the issues with this infrastructure:
+
+SPOF: To mitigate the risk of a SPOF, multiple servers can be used in a load balancing configuration. This will distribute traffic across multiple servers and improve the availability of the website.
+Downtime When Maintenance Needed: To reduce downtime when maintenance is needed, a blue-green deployment strategy can be used. This involves deploying the new code to a separate server and then switching traffic over to the new server once the deployment is complete.
+Cannot Scale If Too Much Incoming Traffic: To scale the infrastructure to handle more incoming traffic, multiple servers can be used in a load balancing configuration. Additionally, a content delivery network (CDN) can be used to cache static content and deliver it to users from servers that are closer to them.
