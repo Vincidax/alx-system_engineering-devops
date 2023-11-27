@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#a Bash script that configures a new Ubuntu machine to Install nginx that 
+# should be listening on port 80
+
+# Install Nginx
+sudo apt update
+sudo apt install nginx -y
+
+# Configure Nginx
+sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/default
+server {
+    listen 80;
+    location / {
+        add_header Content-Type text/html;
+        return 200 "Hello World!";
+    }
+}
+EOF'
+
+# Restart Nginx
+sudo service nginx restart
