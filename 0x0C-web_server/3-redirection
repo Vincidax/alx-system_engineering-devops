@@ -8,19 +8,15 @@ if ! command -v nginx &> /dev/null; then
 fi
 
 # Create or update Nginx configuration for redirection
-sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/redirect_me
+sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/default
 server {
     listen 80;
-    server_name _;
-
-    location /redirect_me {
+    location / {
+        add_header Content-Type text/html;
         return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
     }
 }
 EOF'
 
-# Create a symbolic link to enable the site
-sudo ln -sf /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled/
-
-# Test Nginx configuration and reload instead of using systemctl
-sudo nginx -t && sudo nginx -s reload
+# Restart Nginx by running the following command
+sudo service nginx restart
