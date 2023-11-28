@@ -1,22 +1,31 @@
 #!/usr/bin/env bash
 # Bash script to configure Nginx on a fresh Ubuntu machine for redirection
 
-# Install Nginx if not installed
-if ! command -v nginx &> /dev/null; then
-    sudo apt update
-    sudo apt install nginx -y
+# File path of the Nginx configuration file
+nginx_config="/etc/nginx/sites-available/default"
+
+# URL to redirect to (YouTube in this case)
+redirect_url="https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4"
+
+# Check if the configuration file exists
+if [ ! -f "$nginx_config" ]; then
+    echo "Nginx configuration file not found at $nginx_config"
+    exit 1
 fi
 
-# Create or update Nginx configuration for redirection
-sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/default
-server {
-    listen 80;
-    location / {
-        add_header Content-Type text/html;
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-}
-EOF'
+# Define the redirect block to append
+redirect_block="    return 301 $redirect_url;"
 
-# Restart Nginx by running the following command
-sudo service nginx restart
+# Append the redirect block inside the 'location / {' block
+sudo sed -i "/location \/ {/,/}/ {/}/i \    $redirect_block" "$nginx_config"
+
+# Test Nginx configuration syntax
+sudo nginx -t
+
+# If configuration syntax is valid, restart Nginx
+if [ $? -eq 0 ]; then
+    sudo service nginx restart
+    echo "Nginx restarted."
+else
+    echo "Error in Nginx configuration. Please check and correct."
+fi
