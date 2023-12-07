@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
-
-# Remove the default Nginx configuration file
-rm /etc/nginx/sites-enabled/default
-
-# Configure Nginx to listen on port 80 for all active IPv4 IPs
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# Restart nginx
-service nginx restart || echo "nginx is not running"
+# debugging nginx (service (init) must say that nginx is not running)
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+service nginx restart
+pkill -o nginx
