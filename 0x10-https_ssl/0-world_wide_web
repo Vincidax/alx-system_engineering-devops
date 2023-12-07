@@ -16,5 +16,6 @@ function audit_subdomain {
 		destination=$(dig "$sub.$domain" | awk '/ANSWER SECTION/ { getline; print $5 }')
 		echo "The subdomain $sub is a $record_type record adn points to $destination"
 	done
+}
 
 audit_subdomain "$1" "$2"
