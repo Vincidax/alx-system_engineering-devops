@@ -3,6 +3,7 @@
 Generate a Todo list for a given employee id
 """
 
+
 import json
 import requests
 from sys import argv
@@ -28,6 +29,7 @@ def export_tasks_to_json(user_id):
 
     with open(f"{user_id}.json", "w") as file:
         json.dump(data, file)
+
 
 if __name__ == "__main__":
     user_id = argv[1] if len(argv) > 1 else input("Enter User ID: ")
