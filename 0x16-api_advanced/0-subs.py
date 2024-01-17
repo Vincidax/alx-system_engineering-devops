@@ -15,16 +15,14 @@ def number_of_subscribers(subreddit):
         subreddit (str): The subreddit name.
 
     Returns:
-        int: The number of subscribers,
-	 or 0 if the subreddit is invalid or an error occurs.
+        int: The number of subscribers
     """
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Custom User Agent'}  
+    headers = {'User-Agent': 'Custom User Agent'}
 
     try:
         response = requests.get(url, headers=headers)
         data = response.json()
-        
         if 'error' in data or 'subreddit' not in data:
             return 0  # Invalid subreddit or error in response
 
@@ -34,6 +32,7 @@ def number_of_subscribers(subreddit):
     except requests.RequestException as e:
         print(f"Error making request: {e}")
         return 0
+
 
 if __name__ == '__main__':
     import sys
